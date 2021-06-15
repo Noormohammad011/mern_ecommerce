@@ -26,7 +26,12 @@ const OrderScreen = ({ history }) => {
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     )
   }
-
+  
+  useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
+  }, [userInfo])
   return loading ? (
     <Loader />
   ) : error ? (
