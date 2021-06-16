@@ -5,6 +5,7 @@ import colors from 'colors'
 import morgan from 'morgan'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
+
 /* ------------------------------- all routes ------------------------------- */
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
@@ -16,7 +17,6 @@ connectDB()
 
 /* -------------------------------- req.body -------------------------------- */
 app.use(express.json())
-
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
@@ -27,6 +27,10 @@ app.use(errorHandler)
 app.get('/', (req, res) => {
   res.send('Api Is running')
 })
+
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+)
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
