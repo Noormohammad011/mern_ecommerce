@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
+import { ORDER_PAY_RESET } from '../constants/orderConstatns'
 const OrderScreen = ({ history }) => {
   const [sdkReady, setSdkReady] = useState(false)
   const dispatch = useDispatch()
@@ -49,7 +50,7 @@ const OrderScreen = ({ history }) => {
       document.body.appendChild(script)
     }
     if (!order || successPay) {
-      // dispatch({type: ORDER_PAY_RESET})
+      dispatch({type: ORDER_PAY_RESET})
       dispatch(getOrderDetails(id))
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -61,7 +62,6 @@ const OrderScreen = ({ history }) => {
   }, [id, dispatch, successPay, order])
   
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult)
     dispatch(payOrder(id, paymentResult))
   }
   return loading ? (
