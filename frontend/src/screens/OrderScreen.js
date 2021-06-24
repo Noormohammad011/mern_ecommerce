@@ -20,8 +20,6 @@ const OrderScreen = ({ history }) => {
   const dispatch = useDispatch()
   const { id } = useParams()
 
-  // const userLogin = useSelector((state) => state.userLogin)
-  // const { userInfo } = userLogin
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
   const orderPay = useSelector((state) => state.orderPay)

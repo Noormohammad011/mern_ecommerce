@@ -1,29 +1,34 @@
 import React, { useEffect } from 'react'
-import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { addToCart, removeFromCart } from '../actions/cartActions'
+import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
-const CartScreen = ({ history, location }) => {
-  const { id } = useParams()
+const CartScreen = ({ match, location, history }) => {
+  const productId = match.params.id
+
   const qty = location.search ? Number(location.search.split('=')[1]) : 1
+
   const dispatch = useDispatch()
+
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
-  console.log(cartItems)
+
   useEffect(() => {
-    if (id) {
-      dispatch(addToCart(id, qty))
+    if (productId) {
+      dispatch(addToCart(productId, qty))
     }
-  }, [dispatch, id, qty])
+  }, [dispatch, productId, qty])
+
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }
-  const checkoutHandler = (e) => {
-    e.preventDefault()
+
+  const checkoutHandler = () => {
     history.push('/login?redirect=shipping')
   }
+
   return (
     <Row>
       <Col md={8}>
