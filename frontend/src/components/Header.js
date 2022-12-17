@@ -19,7 +19,7 @@ const Header = () => {
     <header>
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container>
-          <Navbar.Brand href='/'>ShopIt</Navbar.Brand>
+          <Navbar.Brand href='/'>Shop IT</Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
